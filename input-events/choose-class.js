@@ -1,7 +1,7 @@
 'use strict';
 
 const { Broadcast, EventUtil } = require('ranvier');
-const PlayerClass = require('../../bundle-example-classes/lib/PlayerClass');
+const PlayerClass = require('../../classes/lib/PlayerClass');
 
 /**
  * Player class selection event
