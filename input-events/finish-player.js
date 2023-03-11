@@ -11,7 +11,7 @@ module.exports = {
   event: state => {
     const startingRoomRef = Config.get('startingRoom');
     if (!startingRoomRef) {
-      Logger.error('No startingRoom defined in ranvier.json');
+      Logger.error('No starting room defined in ranvier.json');
     }
 
     return async (socket, args) => {
