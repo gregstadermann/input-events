@@ -27,9 +27,12 @@ module.exports = {
         strength: 20,
         agility: 20,
         intellect: 20,
+        energy: 100,
         stamina: 20,
         armor: 0,
-        critical: 0
+        critical: 0,
+        AS: 0,
+        DS: 0
       };
 
       for (const attr in defaultAttributes) {
