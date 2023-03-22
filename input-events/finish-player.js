@@ -26,7 +26,7 @@ module.exports = {
         health: 100,
         strength: 20,
         agility: 20,
-        intellect: 20,
+        intelligence: 20,
         energy: 100,
         stamina: 20,
         armor: 0,
