@@ -23,6 +23,7 @@ module.exports = {
 
       // TIP:DefaultAttributes: This is where you can change the default attributes for players
       const defaultAttributes = {
+        edged_weapons: 0,
         health: 100,
         strength: 20,
         agility: 20,
