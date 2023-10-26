@@ -47,7 +47,7 @@ module.exports = {
     }
 
     if (characters.length) {
-      options.push({ display: "Login As:" });
+      options.push({ display: "\r\n Login As:" });
       characters.forEach(char => {
         options.push({
           display: char.username,
