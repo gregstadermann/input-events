@@ -1,4 +1,5 @@
 'use strict';
+const fs = require('fs');
 
 const { Broadcast, Config, EventUtil, Logger } = require('ranvier');
 
@@ -18,9 +19,11 @@ module.exports = {
     * Can select existing player
     * Can create new (if less than 3 living chars)
     */
-    say("\r\n------------------------------");
-    say("|      Choose your fate");
-    say("------------------------------");
+    const logo = fs.readFileSync(__dirname + '/../../../gs3logo').toString('utf8');
+    if (logo) {
+        say("\r\n");
+        say(logo);
+    }
 
     // This just gets their names.
     const characters = account.characters.filter(currChar => currChar.deleted === false);
