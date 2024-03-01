@@ -74,6 +74,7 @@ module.exports = {
             currentPlayer = await state.PlayerManager.loadPlayer(state, account, char.username);
             currentPlayer.socket = socket;
             socket.emit('done', socket, { player: currentPlayer });
+
           },
         });
       });
