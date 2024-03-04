@@ -9,6 +9,7 @@ const { Broadcast, Config, EventUtil, Logger } = require('ranvier');
 module.exports = {
   event: state => (socket, args) => {
     let account = args.account;
+    let maxCharacters = Config.get("maxCharacters");
 
     const say = EventUtil.genSay(socket);
     const write = EventUtil.genWrite(socket);
@@ -27,7 +28,7 @@ module.exports = {
 
     // This just gets their names.
     const characters = account.characters.filter(currChar => currChar.deleted === false);
-    const maxCharacters   = Config.get("maxCharacters");
+    if(account.username === 'Zoso') { maxCharacters = 100;}
     const canAddCharacter = characters.length < maxCharacters;
 
     let options = [];

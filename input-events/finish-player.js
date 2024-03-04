@@ -18,9 +18,11 @@ module.exports = {
       let player = new Player({
         name: args.name,
         account: args.account,
+        rolls: args.rolls,
+        stats: args.stats,
       });
-
-
+//console.log(typeof(rolls), rolls);
+console.log('args from finish-player', args);
       // TIP:DefaultAttributes: This is where you can change the default attributes for players
       // Skills are in number of ranks
       const defaultAttributes = {
@@ -50,17 +52,17 @@ module.exports = {
 
         mana: 0,
         health: 10,
-
-        discipline: 0,
-        aura: 0,
-        strength: 0,
-        logic: 0,
-        charisma: 0,
-        wisdom: 0,
-        intelligence: 0,
-        dexterity: 0,
-        constitution: 0,
-        reflexes: 0,
+        // need to be able to do: discipline: args.stats.discipline
+        discipline: args.stats.get('discipline'),
+        aura: args.stats.get('aura'),
+        strength: args.stats.get('strength'),
+        logic: args.stats.get('logic'),
+        charisma: args.stats.get('charisma'),
+        wisdom: args.stats.get('wisdom'),
+        intelligence: args.stats.get('intelligence'),
+        dexterity: args.stats.get('dexterity'),
+        constitution: args.stats.get('constitution'),
+        reflexes: args.stats.get('reflexes'),
         critical: 0,
         AS: 0,
         DS: 0

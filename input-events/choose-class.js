@@ -10,6 +10,7 @@ module.exports = {
   event: state => (socket, args) => {
     const say = EventUtil.genSay(socket);
     const write  = EventUtil.genWrite(socket);
+    console.log('Args from choose-class', args);
 
     /*
     Player selection menu:
@@ -24,7 +25,7 @@ module.exports = {
     });
     for (const [ id, config ] of classes) {
       say(`[<bold>${id}</bold>] - <bold>${config.name}</bold>`);
-      say(Broadcast.wrap(`      ${config.description}\r\n`, 80));
+      //say(Broadcast.wrap(`      ${config.description}\r\n`, 80));
     }
     write('> ');
 
@@ -39,6 +40,7 @@ module.exports = {
       }
 
       args.playerClass = choice[0];
+      console.log('Args from choose-class', args);
       socket.emit('finish-player', socket, args);
     });
   }
