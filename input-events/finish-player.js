@@ -1,7 +1,6 @@
 'use strict';
 
 const { Config, Player } = require('ranvier');
-const PlayerClass = require('../../classes/lib/PlayerClass');
 
 /**
  * Finish player creation. Add the character to the account then add the player
@@ -20,6 +19,7 @@ module.exports = {
         account: args.account,
         rolls: args.rolls,
         stats: args.stats,
+          sex: args.sex,
       });
 //console.log(typeof(rolls), rolls);
 console.log('args from finish-player', args);
@@ -80,7 +80,7 @@ console.log('args from finish-player', args);
       const room = state.RoomManager.getRoom(startingRoomRef);
       player.room = room;
       await state.PlayerManager.save(player);
-
+      player.sex = args.sex;
       // reload from manager so events are set
       player = await state.PlayerManager.loadPlayer(state, player.account, player.name);
       player.socket = socket;

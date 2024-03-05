@@ -24,7 +24,7 @@ module.exports = {
         return socket.emit('create-player', socket, args);
       }
 
-      socket.emit('choose-profession', socket, args);
+      socket.emit('choose-sex', socket, args);
     });
   }
 };

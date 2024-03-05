@@ -10,6 +10,7 @@ module.exports = {
         let allRolls = new Map(Object.entries(args.rolls));
         let rolls;
         if(rolls === undefined){
+            console.log('rolls is undefined');
             rolls = allRolls;
         }
 
@@ -27,11 +28,16 @@ module.exports = {
         ]);
 
         say('ASSIGN YOUR STAT SCORES');
-        say('Rolls left to assign to stats: ' + args.rolls.toString());
+        //say('Rolls left to assign to stats: ' + args.rolls.toString());
         say('Your character\'s stats so far:');
+        say('');
         for (let stat of args.stats.keys()){
             say(`${stat}: ${args.stats.get(stat)}`);
         }
+        say('');
+        say('You have ' + rolls.size + ' rolls left to assign:');
+        say(args.rolls.toString());
+        say('');
         say('Enter a stat to assign a roll to, or type "done" to finish: ');
 
         socket.once('data', stat => {
@@ -43,6 +49,16 @@ module.exports = {
                 socket.once('data', selectedRoll => {
                     say('');
                     selectedRoll= Number(selectedRoll.toString().trim().toLowerCase());
+                    if(!args.rolls.includes(selectedRoll)){
+                        say('That\'s not a valid roll');
+                        return socket.emit('choose-stats', socket, args);
+                    }
+
+                    if(args.stats.get(stat) !== 0) {
+                        say('You already assigned a roll to that stat');
+                        return socket.emit('choose-stats', socket, args);
+                    }
+
                     args.stats.set(stat, selectedRoll);
                     let index = args.rolls.indexOf(selectedRoll);
                     if (index !== -1) {
