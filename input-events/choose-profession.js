@@ -40,8 +40,9 @@ module.exports = {
             }
 
             args.playerClass = choice[0];
-            console.log('Args from choose-profession', args);
-            socket.emit('choose-rolls', socket, args);
+            //console.log('Args from choose-profession', args);
+            //socket.emit('choose-rolls', socket, args);
+            socket.emit('choose-skills', socket, args);
         });
     }
 };

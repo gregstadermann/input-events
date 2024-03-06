@@ -61,31 +61,29 @@ module.exports = {
 
                     args.stats.set(stat, selectedRoll);
                     let index = args.rolls.indexOf(selectedRoll);
+
                     if (index !== -1) {
-                        console.log(args);
                         args.rolls.splice(index, 1);
                     }
+
                     if(rolls.size > 0){
-                        console.log(args);
                         return socket.emit('choose-stats', socket, args);
-                    }
-                    else{
+                    }else{
                         return socket.emit('choose-class', socket, args);
                     }
                 });
-            }
-            else if(stat === 'done'){
-                if(rolls > 0){
-                    say('You have rolls left to assign');
+            }else{
+                if (stat === 'done') {
+                    if (rolls > 0) {
+                        say('You have rolls left to assign');
+                        return socket.emit('choose-stats', socket, args);
+                    } else {
+                        return socket.emit('choose-skills', socket, args);
+                    }
+                } else {
+                    say('That\'s not a valid stat');
                     return socket.emit('choose-stats', socket, args);
                 }
-                else{
-                    return socket.emit('finish-player', socket, args);
-                }
-            }
-            else{
-                say('That\'s not a valid stat');
-                return socket.emit('choose-stats', socket, args);
             }
         });
     }
