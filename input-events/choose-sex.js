@@ -3,7 +3,7 @@
 const { EventUtil } = require('ranvier');
 
 /**
- * Confirm new player name
+ * CHoose a gender
  */
 module.exports = {
     event: state => (socket, args) => {
@@ -21,15 +21,15 @@ module.exports = {
 
             if (confirmation === 'f') {
                 args.sex = 'female';
-                return socket.emit('choose-profession', socket, args);
+                return socket.emit('choose-race', socket, args);
             }
 
             if(confirmation === 'm'){
                 args.sex = 'male';
-                return socket.emit('choose-profession', socket, args);
+                return socket.emit('choose-race', socket, args);
             }
 
-            socket.emit('choose-profession', socket, args);
+            socket.emit('choose-race', socket, args);
         });
     }
 };

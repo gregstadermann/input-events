@@ -66,10 +66,8 @@ module.exports = {
                         args.rolls.splice(index, 1);
                     }
 
-                    if(rolls.size > 0){
+                    if(rolls.size > 0) {
                         return socket.emit('choose-stats', socket, args);
-                    }else{
-                        return socket.emit('choose-class', socket, args);
                     }
                 });
             }else{

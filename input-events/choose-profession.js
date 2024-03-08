@@ -36,13 +36,13 @@ module.exports = {
             });
 
             if (!choice) {
-                return socket.emit('choose-class', socket, args);
+                return socket.emit('choose-profession', socket, args);
             }
 
             args.playerClass = choice[0];
             //console.log('Args from choose-profession', args);
             //socket.emit('choose-rolls', socket, args);
-            socket.emit('choose-skills', socket, args);
+            socket.emit('choose-rolls', socket, args);
         });
     }
 };
