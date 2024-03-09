@@ -13,6 +13,7 @@ module.exports = {
         args.skillCosts = args.skillCosts || currentClass.config.skills;
         let skillCosts = args.skillCosts;
 
+        args.manaStat = currentClass.config.manaStat;
         args.skills = args.skills || [];
         args.mentalTPs = args.mentalTPs || 45;
         args.physicalTPs = args.physicalTPs || 45;
