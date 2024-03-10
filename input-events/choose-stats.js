@@ -3,6 +3,8 @@
 const { EventUtil } = require('ranvier');
 
 /**
+ * Choose Stats player creation event.
+ * Followed by choose-skills.js
  */
 module.exports = {
     event: state => (socket, args) => {
@@ -28,7 +30,6 @@ module.exports = {
         ]);
 
         say('ASSIGN YOUR STAT SCORES');
-        //say('Rolls left to assign to stats: ' + args.rolls.toString());
         say('Your character\'s stats so far:');
         say('');
         for (let stat of args.stats.keys()){

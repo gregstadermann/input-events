@@ -4,7 +4,8 @@ const { Broadcast, EventUtil } = require('ranvier');
 const PlayerClass = require('../../classes/lib/PlayerClass');
 
 /**
- * Player class selection event
+ * Choose profession player event
+ * Followed by choose-rolls.js
  */
 module.exports = {
     event: state => (socket, args) => {
@@ -12,11 +13,6 @@ module.exports = {
         const write  = EventUtil.genWrite(socket);
         console.log('Args from choose-class', args);
 
-        /*
-        Player selection menu:
-        * Can select existing player
-        * Can create new (if less than 3 living chars)
-        */
         say('  Pick your class');
         say(' --------------------------');
         let classes = PlayerClass.getClasses();
@@ -24,8 +20,7 @@ module.exports = {
             return [id, instance.config];
         });
         for (const [ id, config ] of classes) {
-            say(`[<bold>${id}</bold>] - <bold>${config.name}</bold>`);
-            //say(Broadcast.wrap(`      ${config.description}\r\n`, 80));
+            say(`[<bold>${id}</bold>] - <bold>${config.name}</bold> - Prime Stats: ${config.primeStats.join(', ')}`);
         }
         write('> ');
 
@@ -40,8 +35,6 @@ module.exports = {
             }
 
             args.playerClass = choice[0];
-            //console.log('Args from choose-profession', args);
-            //socket.emit('choose-rolls', socket, args);
             socket.emit('choose-rolls', socket, args);
         });
     }

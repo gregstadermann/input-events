@@ -107,7 +107,7 @@ module.exports = {
                 player.emit('useAbility', result.skill, result.args);
               },
               label: data,
-            }, result.skill.lag || state.Config.get('skillLag') || 1000);
+            }, result.skill.lag || state.Config.get('skillLag') || 3000);
             break;
           }
         }

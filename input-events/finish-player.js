@@ -16,12 +16,15 @@ module.exports = {
     return async (socket, args) => {
       let player = new Player({
           name: args.name,
+          sex: args.sex,
+          race: args.playerRace,
+          playerClass: args.playerClass,
           account: args.account,
           rolls: args.rolls,
           stats: args.stats,
-          sex: args.sex,
           skills: args.skills,
           manaStat: args.manaStat,
+          tps: args.tps,
       });
         console.log('args from finish-player', args);
         let skillMap = new Map(args.skills.map(obj => [obj.skill, obj.ranks]));
@@ -54,9 +57,20 @@ module.exports = {
             scroll_reading: skillMap.get('scroll_reading') || 0,
             first_aid: skillMap.get('first_aid') || 0,
             harness_power: skillMap.get('harness_power') || 0,
+
             major_elemental: skillMap.get('major_elemental') || 0,
             minor_elemental: skillMap.get('minor_elemental') || 0,
+
+            major_spiritual: skillMap.get('major_spiritual') || 0,
+            minor_spiritual: skillMap.get('minor_spiritual') || 0,
+
+            cleric_base: skillMap.get('cleric_base') || 0,
             wizard_base: skillMap.get('wizard_base') || 0,
+            ranger_base: skillMap.get('ranger_base') || 0,
+            empath_base: skillMap.get('empath_base') || 0,
+            sorcerer_base: skillMap.get('sorcerer_base') || 0,
+            bard_base: skillMap.get('bard_base') || 0,
+            paladin_base: skillMap.get('paladin_base') || 0,
 
             mana: Math.round(manaStat/2),
             health: Math.round((args.stats.get('constitution') + args.stats.get('strength')) / 10),
@@ -84,11 +98,13 @@ module.exports = {
         args.account.save();
 
         player.setMeta('class', args.playerClass);
+        player.sex = args.sex;
+        player.race = args.playerRace;
+        player.tps = args.tps;
 
         const room = state.RoomManager.getRoom(startingRoomRef);
         player.room = room;
         await state.PlayerManager.save(player);
-        player.sex = args.sex;
         // reload from manager so events are set
         player = await state.PlayerManager.loadPlayer(state, player.account, player.name);
         player.socket = socket;

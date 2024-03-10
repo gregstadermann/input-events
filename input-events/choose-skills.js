@@ -4,12 +4,15 @@ const { EventUtil } = require('ranvier');
 const PlayerClass = require('../../classes/lib/PlayerClass');
 
 /**
+ * Choose Skills player creation event.
+ * Followed by finish-player.js
  */
 module.exports = {
     event: state => (socket, args) => {
         const say = EventUtil.genSay(socket);
         const chosenPlayerClass = args.playerClass;
         let currentClass = PlayerClass.get(chosenPlayerClass);
+
         args.skillCosts = args.skillCosts || currentClass.config.skills;
         let skillCosts = args.skillCosts;
 
@@ -19,43 +22,27 @@ module.exports = {
         args.physicalTPs = args.physicalTPs || 45;
         args.skill = args.skill || '';
 
-        //let currentClass = new PlayerClass(chosenPlayerClass, {}).getSkillList();
-        //console.log('Args from choose-skills', args);
-        //console.log(chosenPlayerClass, typeof(skillCosts), skillCosts);
-
+        say('Choose a skill to train (case insensitive) or type "done" to finish: ');
         say('');
         say('  ' + chosenPlayerClass + ' Skill Training Costs');
         say(' --------------------------');
+
         let skills = Object.keys(skillCosts);
 
         for( let skill of Object.keys(skillCosts)){
             say(skillCosts[skill].name + ': ' + skillCosts[skill].cost + ' Ranks: '+ skillCosts[skill].ranks);
         }
 
+        say(' --------------------------');
         say('PTPs: '+ args.physicalTPs + ' | MTPs: ' + args.mentalTPs);
-        /** for (let stat of args.stats.keys()){
-            say(`${stat}: ${args.stats.get(stat)}`);
-        }
-        say('');
-        say('You have ' + rolls.size + ' rolls left to assign:');
-        say(args.rolls.toString());
-        say('');
-        say('Enter a stat to assign a roll to, or type "done" to finish: ');
-         **/
-
-        /**
-         * The selected code is a callback function that is triggered once when the 'data' event is emitted on the i
-         * 'socket' object. This event is typically emitted when data is received from the client. The data received is
-         * expected to be the name of a skill that the player wants to train.
-         **/
 
         socket.once('data', skill => {
-            say('Choose a skill to train (case insensitive) or type "done" to finish: ');
             let ptpToTrain;
             let mtpToTrain;
             args.skill = skill.toString().trim().toLowerCase();
 
             if(args.skill === 'done'){
+                args.tps = [args.physicalTPs, args.mentalTPs];
                 return socket.emit('finish-player', socket, args);
             }
 

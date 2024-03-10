@@ -3,7 +3,8 @@
 const { EventUtil } = require('ranvier');
 
 /**
- * CHoose a gender
+ * Choose gender player creation event.
+ * Followed by choose-race.js
  */
 module.exports = {
     event: state => (socket, args) => {

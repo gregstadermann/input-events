@@ -4,7 +4,8 @@ const { EventUtil } = require('ranvier');
 const PlayerRace = require('../lib/PlayerRace');
 
 /**
- * Confirm new player name
+ * Choose race player creation event.
+ * Followed by choose-profession.js
  */
 module.exports = {
     event: state => (socket, args) => {
@@ -12,11 +13,6 @@ module.exports = {
         const write  = EventUtil.genWrite(socket);
         console.log('Args from choose-race', args);
 
-        /*
-        Player selection menu:
-        * Can select existing player
-        * Can create new (if less than 3 living chars)
-        */
         say('  Pick your race');
         say(' --------------------------');
         let races = PlayerRace.getRaces();
@@ -27,8 +23,7 @@ module.exports = {
         });
         for (const [ id] of races) {
             console.log(races);
-            say(`[<bold>${id}</bold>] - <bold>${id}</bold>`);
-            //say(Broadcast.wrap(`      ${config.description}\r\n`, 80));
+            say(`[<bold>${id}</bold>] - <bold>${id.description}</bold>`);
         }
         write('> ');
 
@@ -43,8 +38,6 @@ module.exports = {
             }
 
             args.playerRace = choice[0];
-            //console.log('Args from choose-profession', args);
-            //socket.emit('choose-rolls', socket, args);
             socket.emit('choose-profession', socket, args);
         });
 

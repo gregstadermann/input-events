@@ -4,7 +4,8 @@ const { Random } = require('rando-js');
 const { EventUtil } = require('ranvier');
 
 /**
- * Roll For Stats
+ * Roll for stats player creation event.
+ * Followed by choose-stats.js
  */
 module.exports = {
     event: state => (socket, args) => {
