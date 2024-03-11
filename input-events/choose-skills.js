@@ -30,7 +30,7 @@ module.exports = {
         let skills = Object.keys(skillCosts);
 
         for( let skill of Object.keys(skillCosts)){
-            say(skillCosts[skill].name + ': ' + skillCosts[skill].cost + ' Ranks: '+ skillCosts[skill].ranks);
+            say(skillCosts[skill].name + ': ' + skillCosts[skill].cost + ' Ranks: '+ args.skills[skill].ranks);
         }
 
         say(' --------------------------');
@@ -52,7 +52,6 @@ module.exports = {
             }
 
             if(args.skills.find(({ skill })=> args.skill === skill)){
-                console.log(args.skill, skill);
                 say('You already trained that skill, the cost has increased');
                 ptpToTrain = skillCosts[args.skill].cost[0] * 2;
                 mtpToTrain = skillCosts[args.skill].cost[1] * 2;
@@ -74,14 +73,10 @@ module.exports = {
             args.mentalTPs -= mtpToTrain;
 
             if(args.skills.find(({ skill })=> args.skill === skill)) {
-                console.log('Skill already exists in args.skills');
                 args.skills.find(({skill}) => args.skill === skill).ranks++;
             }else{
                 args.skills.push({skill: args.skill, ranks: 1});
             }
-
-            console.log('physicalTPs ', args.physicalTPs, 'mentalTPs ', args.mentalTPs);
-            console.log('args.skills', args.skills);
 
             return socket.emit('choose-skills', socket, args);
         });
