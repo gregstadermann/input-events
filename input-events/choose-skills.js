@@ -12,16 +12,23 @@ module.exports = {
         const say = EventUtil.genSay(socket);
         const chosenPlayerClass = args.playerClass;
         let currentClass = PlayerClass.get(chosenPlayerClass);
+        let mtps = 25 + Math.floor((args.stats.get('intelligence') + args.stats.get('wisdom') + args.stats.get('logic') + args.stats.get('discipline') + ((args.stats.get('aura') + args.stats.get('charisma')) / 2)) / 20);
+        let ptps = 25 + Math.floor((args.stats.get('strength') + args.stats.get('constitution') + args.stats.get('dexterity') + args.stats.get('reflexes') + ((args.stats.get('aura') + args.stats.get('charisma')) / 2)) / 20);
+
 
         args.skillCosts = args.skillCosts || currentClass.config.skills;
-        console.log('args.skilLCosts', args.skillCosts);
         let skillCosts = args.skillCosts;
-console.log('skillCosts', skillCosts);
         args.manaStat = currentClass.config.manaStat;
         args.skills = args.skills || [];
-        args.mentalTPs = args.mentalTPs || 45;
-        args.physicalTPs = args.physicalTPs || 45;
+        args.mentalTPs = args.mentalTPs || mtps;
+        args.physicalTPs = args.physicalTPs || ptps;
         args.skill = args.skill || '';
+        console.log('stats: ', args.stats);
+        console.log('mtps: ', args.mentalTPs);
+        console.log('ptps: ', args.physicalTPs);
+
+        //MTPs = 25 + [(LOG + INT + WIS + INF + ((AUR + DIS) ÷ 2)) ÷ 20]
+        //PTPs = 25 + [(STR + CON + DEX + AGI + ((AUR + DIS) ÷ 2)) ÷ 20]
 
         say('Choose a skill to train (case insensitive) or type "done" to finish: ');
         say('');
@@ -29,10 +36,9 @@ console.log('skillCosts', skillCosts);
         say(' --------------------------');
 
         let skills = Object.keys(skillCosts);
-        console.log('skills', skills);
 
         for( let skill of Object.keys(skillCosts)){
-            say(skillCosts[skill].name + ': ' + skillCosts[skill].cost + ' Ranks: '+ args.skills[skill].ranks);
+            say(skillCosts[skill].name + ': ' + skillCosts[skill].cost + ' Ranks: '+ skillCosts[skill].ranks);
         }
 
         say(' --------------------------');

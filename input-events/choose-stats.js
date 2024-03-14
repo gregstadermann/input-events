@@ -15,7 +15,7 @@ module.exports = {
             console.log('rolls is undefined');
             rolls = allRolls;
         }
-        let primeStats = args.playerClass.primeStats
+        let primeStats = args.primeStats
         console.log('Prime Stats: ', primeStats);
 
         args.stats = args.stats || new Map([
@@ -79,6 +79,7 @@ module.exports = {
                         say('You have rolls left to assign');
                         return socket.emit('choose-stats', socket, args);
                     } else {
+                        args.primeStats = primeStats;
                         return socket.emit('choose-skills', socket, args);
                     }
                 } else {

@@ -35,6 +35,7 @@ module.exports = {
             }
 
             args.playerClass = choice[0];
+            args.primeStats = choice[1].primeStats;
             socket.emit('choose-rolls', socket, args);
         });
     }

@@ -1,6 +1,7 @@
 'use strict';
 
 const { Config, Player } = require('ranvier');
+const { PlayerClass } = require("../../classes/lib/PlayerClass");
 
 /**
  * Finish player creation. Add the character to the account then add the player
@@ -29,6 +30,7 @@ module.exports = {
         console.log('args from finish-player', args);
         let skillMap = new Map(args.skills.map(obj => [obj.skill, obj.ranks]));
         let manaStat = args.stats.get(args.manaStat);
+        let primeStats = args.stats.get(args.primeStats);
         // TIP:DefaultAttributes: This is where you can change the default attributes for players
         // Skills are in number of ranks
         // All I need to do is get skills out of args.skills into this object which is written to the player
@@ -90,9 +92,10 @@ module.exports = {
             DS: 0
         };
 
+        console.log('primeStats from finish-player', args.primeStats);
         // Add our class bonuses
         for (const attr in defaultAttributes) {
-            if(args.playerClass.primeStats[attr] !== undefined) {
+            if(args.primeStats[attr] !== undefined) {
                 defaultAttributes[attr] += 10;
             }
         }
