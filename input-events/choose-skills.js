@@ -14,8 +14,9 @@ module.exports = {
         let currentClass = PlayerClass.get(chosenPlayerClass);
 
         args.skillCosts = args.skillCosts || currentClass.config.skills;
+        console.log('args.skilLCosts', args.skillCosts);
         let skillCosts = args.skillCosts;
-
+console.log('skillCosts', skillCosts);
         args.manaStat = currentClass.config.manaStat;
         args.skills = args.skills || [];
         args.mentalTPs = args.mentalTPs || 45;
@@ -28,6 +29,7 @@ module.exports = {
         say(' --------------------------');
 
         let skills = Object.keys(skillCosts);
+        console.log('skills', skills);
 
         for( let skill of Object.keys(skillCosts)){
             say(skillCosts[skill].name + ': ' + skillCosts[skill].cost + ' Ranks: '+ args.skills[skill].ranks);

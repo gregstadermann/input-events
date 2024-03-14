@@ -15,6 +15,8 @@ module.exports = {
             console.log('rolls is undefined');
             rolls = allRolls;
         }
+        let primeStats = args.playerClass.primeStats
+        console.log('Prime Stats: ', primeStats);
 
         args.stats = args.stats || new Map([
             ['discipline', 0],

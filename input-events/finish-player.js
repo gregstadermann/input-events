@@ -90,6 +90,13 @@ module.exports = {
             DS: 0
         };
 
+        // Add our class bonuses
+        for (const attr in defaultAttributes) {
+            if(args.playerClass.primeStats[attr] !== undefined) {
+                defaultAttributes[attr] += 10;
+            }
+        }
+
         for (const attr in defaultAttributes) {
             player.addAttribute(state.AttributeFactory.create(attr, defaultAttributes[attr]));
         }
