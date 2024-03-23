@@ -56,6 +56,7 @@ module.exports = {
         options.push({
           display: char.username,
           onSelect: async () => {
+            // Load the player from the PlayerManager
             let currentPlayer = pm.getPlayer(char.username);
             let existed = false;
             if (currentPlayer) {
@@ -116,6 +117,13 @@ module.exports = {
             say('Account deleted, it was a pleasure doing business with you.');
             socket.end();
           });
+      },
+    });
+
+    options.push({
+      display: "Train a Character",
+      onSelect: () => {
+        socket.emit('train-character', socket, args);
       },
     });
 
