@@ -34,7 +34,7 @@ module.exports = {
             }
 
             args.playerRace = choice[0];
-            socket.emit('choose-profession', socket, args);
+            socket.emit('choose-skin-tone', socket, args);
         });
 
     }

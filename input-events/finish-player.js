@@ -30,12 +30,25 @@ module.exports = {
           skills: args.skills,
           manaStat: args.manaStat,
           tps: args.tps,
-          primeStats: args.primeStats
+          primeStats: args.primeStats,
+          weight: args.weight,
+          eyeColor: args.eyeColor,
+          eyeTrait: args.eyeTrait,
+          hairColor: args.hairColor,
+          hairTexture: args.hairTexture,
+          hairQuirk: args.hairQuirk,
+          hairStyle: args.hairStyle,
+          skinTone: args.skinTone,
+          height: args.height,
+          faceFeature: args.faceFeature,
+          noseDetail: args.noseDetail,
+          distinguishingMark: args.distinguishingMark
       });
+
         console.log('args from finish-player', args);
         let skillMap = new Map(args.skills.map(obj => [obj.skill, obj.ranks]));
         let manaStat = args.stats.get(args.manaStat);
-        let races = PlayerRace.getRaces();
+        //let races = PlayerRace.getRaces();
         let baseHealthPoints = PlayerRace.getRace(args.playerRace).baseHp;
 
         // TIP:DefaultAttributes: This is where you can change the default attributes for players
@@ -81,7 +94,7 @@ module.exports = {
             bard_base: skillMap.get('bard_base') || 0,
             paladin_base: skillMap.get('paladin_base') || 0,
 
-            mana: Math.round(manaStat/2),
+            mana: Math.round(Player.getSkillBonus(manaStat)/2),
             health: baseHealthPoints + Math.round((args.stats.get('constitution') + args.stats.get('strength')) / 10),
 
             discipline: args.stats.get('discipline'),
@@ -113,12 +126,26 @@ module.exports = {
 
         args.account.addCharacter(args.name);
         args.account.save();
-
+        console.log('args ', args);
         player.setMeta('class', args.playerClass);
         player.sex = args.sex;
         player.race = args.playerRace;
         player.tps = args.tps;
+        player.eyeColor = args.eyeColor;
+        player.eyeTrait = args.eyeTrait;
+        player.hairColor = args.hairColor;
+        player.hairStyle = args.hairStyle;
+        player.hairQuirk = args.hairQuirk;
+        player.hairTexture = args.hairTexture;
+        player.skinTone = args.skinTone;
+        player.faceFeature = args.faceFeature;
+        player.noseDetail = args.noseDetail;
+        player.distinguishingMark = args.distinguishingMark;
         player.class = args.playerClass;
+        player.height = args.height;
+        player.weight = PlayerRace.getRace(args.playerRace).baseWeight + Math.round(args.stats.get('strength').base + args.stats.get('constitution').base);
+        console.log('player from finish-player', player);
+
 
         const room = state.RoomManager.getRoom(startingRoomRef);
         player.room = room;
